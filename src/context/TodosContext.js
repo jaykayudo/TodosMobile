@@ -16,10 +16,10 @@ export const TodosContextProvider = ({children})=>{
     const [data,setData] = useState([{id:"ffdvrtvr56t876vfdgbytryu",title:"First Todos",date: new Date().toDateString('en-GB'),expired:false,todos:[{title:"Play Game",finished:false,id:"disydisyd79ds7dd"}]}])
     const addSection =(title,date)=>{
         const id = makeid(7)
-        // const dateString = date.toDateString('en-GB')
+        const dateString = date.toDateString()
         const expired = false
         const todos = []
-        const smallData = {id:id,title:title,date:date,expired,todos}
+        const smallData = {id:id,title:title,date:dateString,expired,todos}
         setData((prevState)=>{
             return [...prevState,smallData]
         })
@@ -30,7 +30,8 @@ export const TodosContextProvider = ({children})=>{
         })
     }
     const finishTodos = (parentId,Id)=>{
-        setData((prevState)=>{
+        setData((previousState)=>{
+            const prevState = [...previousState]
             const foundIndex = prevState.findIndex((value)=>value.id == parentId)
             const foundState = prevState[foundIndex]
             foundState.todos[foundState.todos.findIndex((value)=> value.id== Id)].finished = true
@@ -39,7 +40,8 @@ export const TodosContextProvider = ({children})=>{
         })
     }
     const removeTodos = (parentId,Id)=>{
-        setData((prevState)=>{
+        setData((previousState)=>{
+            const prevState = [...previousState]
             const foundIndex = prevState.findIndex((value)=>value.id == parentId)
             const foundState = prevState[foundIndex]
             delete foundState.todos[foundState.todos.findIndex((value)=> value.id== Id)]
@@ -49,7 +51,8 @@ export const TodosContextProvider = ({children})=>{
     }
     const addTodos = (parentId, todos)=>{
         const id = makeid(7)
-        setData((prevState)=>{
+        setData((previousState)=>{
+            const prevState = [...previousState]
             prevState[prevState.findIndex((value)=>value.id == parentId)].todos.push({id: id,title:todos,finished:false})
             return prevState
         })
@@ -100,9 +103,9 @@ export const TodosContextProvider = ({children})=>{
     }
     const checkedExpired = ()=>{
         const today  = new Date()
-        setData((prevState)=>{
+        setData((prevState)=>{ 
             for(let x = 0; x < prevState.length; x++ ){
-                if(today > prevState[x].date){
+                if(today > new Date(prevState[x].date)){
                     prevState[x].expired = true
                 }
             }

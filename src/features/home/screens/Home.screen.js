@@ -58,7 +58,7 @@ const HomeScreen = ({navigation}) => {
                 <TodoSection 
                     key={item.id} 
                     title={item.item.title} 
-                    date={item.item.date.toDateString('en-GB')} 
+                    date={item.item.date} 
                     onClick={()=>(navigateToTodos(item.item))} 
                     onLongClick={()=>longPressEvent(item.item.title,item.item.id)}
                     />
