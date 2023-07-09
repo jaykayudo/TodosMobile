@@ -12,4 +12,4 @@
 - Check a todos after completion
 
 ## Purpose
-For Addding Todos
+For Adding Todos
